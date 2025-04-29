@@ -1,7 +1,33 @@
 @baseurl = http://localhost:3000
 
 # Recados
-GET {{baseurl}}/recados
+GET {{baseurl}}/recados/
+# ?limit=10
+# &offset=0
 ###
 GET {{baseurl}}/recados/1
 ###
+POST  {{baseurl}}/recados
+
+Content-Type: application/json
+{
+  "titulo": "Recado de teste",
+  "descricao": "Descrição do recado de teste",
+  "data": "2023-10-01T00:00:00.000Z",
+  "hora": "12:00:00"
+}
+
+###
+
+PUT {{baseurl}}/recados/1
+
+Content-Type: application/json
+{
+  "titulo": "Recado atualizado",
+  "descricao": "Descrição do recado atualizado",
+  "data": "2023-10-02T00:00:00.000Z",
+  "hora": "14:00:00"
+}
+
+###
+DELETE {{baseurl}}/recados/1
