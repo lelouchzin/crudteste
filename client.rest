@@ -11,13 +11,13 @@ POST  {{baseurl}}/recados
 
 Content-Type: application/json
 {
-  "titulo": "Recado de teste",
-  "descricao": "Descrição do recado de teste",
-  "data": "2023-10-01T00:00:00.000Z",
-  "hora": "12:00:00"
+    "texto": "Novo Recado",
+    "de": "Joana",
+    "para": "João",
+    "lido": false,
 }
 
-###
+### Atualizar um recado
 
 PUT {{baseurl}}/recados/1
 

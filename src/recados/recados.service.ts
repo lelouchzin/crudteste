@@ -1,18 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { Recado } from './entities/recado.entity';
 
 @Injectable()
 export class RecadosService {
+  private lastId = 2;
+  private recados: Recado[] = [
+    {
+      id: 1,
+      texto: 'Recado teste',
+      de: 'Joana',
+      para: 'João',
+      lido: false,
+      data: new Date(),
+    },
+    {
+      id: 2,
+      texto: 'Recado teste parte 2',
+      de: 'João',
+      para: 'Joana',
+      lido: false,
+      data: new Date(),
+    },
+  ];
+
   getFindAll(paginacao: { limit: number; offset: number }) {
-    return `This action returns all recados, limit=#${paginacao.limit}, offset=#${paginacao.offset}`;
+    return this.recados;
   }
 
   getFindOne(id: string) {
-    return `This action returns a #${id} recado`;
+    return this.recados.find(item => item.id == +id);
   }
 
-  create(body: string) {
-    body = 'This action create a recado';
-    return body;
+  create(body: any) {
+    this.lastId++;
+    const id = this.lastId;
+    const newRecado = {
+      ...body,
+      id,
+      data: new Date(),
+    };
+    this.recados.push(newRecado);
+
+    return newRecado;
   }
 
   update(id: string, body: string) {

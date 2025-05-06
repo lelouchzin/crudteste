@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
+import { Recado } from './entities/recado.entity';
 
 @Controller('recados')
 export class RecadosController {
@@ -31,7 +32,7 @@ export class RecadosController {
 
   // @HttpStatus(HttpStatus.CREATED)
   @Post()
-  create(@Body() body: string) {
+  create(@Body() body: any) {
     console.log(body);
     return this.recadosservice.create(body);
   }
