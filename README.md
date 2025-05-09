@@ -23,7 +23,6 @@ gerenciamento de recados.
 # Instale o NestJS CLI globalmente (caso ainda não tenha)
 npm install -g @nestjs/cli
 
-```bash
 # Clone o repositório
 git clone https://github.com/lelouchzin/crudteste.git
 
