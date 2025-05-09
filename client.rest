@@ -5,23 +5,25 @@ GET {{baseurl}}/recados/
 # ?limit=10
 # &offset=0
 ###
-GET {{baseurl}}/recados/1
+GET {{baseurl}}/recados/4
+
+
 ###
 POST  {{baseurl}}/recados
-
 Content-Type: application/json
+
 {
-    "texto": "Novo Recado",
-    "de": "Joana",
-    "para": "João",
-    "lido": false,
+    "texto": "Recado de teste",	
+    "de": "caua",
+    "para": "Teste",
+    "lido": true
 }
 
 ### Atualizar um recado
 
-PUT {{baseurl}}/recados/1
-
+PUT {{baseurl}}/recados/3
 Content-Type: application/json
+
 {
   "titulo": "Recado atualizado",
   "descricao": "Descrição do recado atualizado",

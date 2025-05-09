@@ -26,25 +26,24 @@ export class RecadosController {
   // @HttpStatus(HttpStatus.OK)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    console.log(id);
     return this.recadosservice.getFindOne(id);
   }
 
   // @HttpStatus(HttpStatus.CREATED)
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: Recado) {
     console.log(body);
     return this.recadosservice.create(body);
   }
 
   // @HttpStatus(HttpStatus.OK)
   @Put(':id')
-  update(@Param('id') id: string, @Body() body: string) {
+  update(@Param('id') id: string, @Body() body: Recado) {
     return this.recadosservice.update(id, body);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: Recado) {
     return this.recadosservice.remove(id);
   }
 }

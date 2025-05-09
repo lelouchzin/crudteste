@@ -1,5 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Recado } from './entities/recado.entity';
+import { stringify } from 'querystring';
 
 @Injectable()
 export class RecadosService {
@@ -24,14 +31,21 @@ export class RecadosService {
   ];
 
   getFindAll(paginacao: { limit: number; offset: number }) {
+    paginacao.limit = 10;
+    paginacao.offset = 0;
     return this.recados;
   }
 
   getFindOne(id: string) {
-    return this.recados.find(item => item.id == +id);
+    const recado = this.recados.find(item => item.id == +id);
+    if (recado) {
+      return recado;
+    } else {
+      this.lancarErroNotFound('Recado');
+    }
   }
 
-  create(body: any) {
+  create(body: Recado) {
     this.lastId++;
     const id = this.lastId;
     const newRecado = {
@@ -44,12 +58,39 @@ export class RecadosService {
     return newRecado;
   }
 
-  update(id: string, body: string) {
-    body = `This action updates a #${id} recado`;
-    return body;
+  update(id: string, body: Recado) {
+    const recadoExistenteIdex: number = this.recados.findIndex(
+      item => item.id == +id,
+    );
+
+    if (recadoExistenteIdex >= 0) {
+      const recadoExiste: Recado = this.recados[recadoExistenteIdex];
+
+      this.recados[recadoExistenteIdex] = {
+        ...recadoExiste,
+        ...body,
+      };
+    } else {
+      this.lancarErroNotFound('Recado');
+    }
+
+    return this.recados[recadoExistenteIdex];
   }
 
   remove(id: any) {
-    return `This action removes a #${id} recado`;
+    const recadoExistenteIdex = this.recados.findIndex(item => item.id == +id);
+
+    const recado: Recado = this.recados[recadoExistenteIdex];
+
+    if (recadoExistenteIdex >= 0) {
+      this.recados.splice(recadoExistenteIdex, 1);
+    } else {
+      this.lancarErroNotFound('Recado');
+    }
+    return recado;
+  }
+
+  lancarErroNotFound(messagem: string) {
+    throw new NotFoundException(`${messagem} não encontrado`);
   }
 }
